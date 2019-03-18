@@ -17,15 +17,21 @@ class HomePage extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    const { title, author, time } = this.state;
+    if (this.formIsValid()) {
+      const { title, author, time } = this.state;
+      const file = this.fileRef.current.files[0];
+      const song = { title, author, time };
 
+      this.props.postSong(song, file);
+      this.formRef.current.reset();
+    }
+  }
+
+  formIsValid = () => {
+    const { title, author, time } = this.state;
     const file = this.fileRef.current.files[0];
 
-    const song = { title, author, time };
-
-    this.props.postSong(song, file);
-
-    this.formRef.current.reset();
+    return author && title && time && file
   }
 
   handleClick = (e) => {
@@ -33,7 +39,6 @@ class HomePage extends Component {
   }
 
   handleDelete = (id) => {
-    console.log(id);
     this.props.deleteSong(id);
   }
 
@@ -55,6 +60,9 @@ class HomePage extends Component {
             return (
               <li className="list-group-item d-flex justify-content-between align-items-center" key={song.id}>
                 {song.title} {song.author}
+                <audio controls>
+                  <source src="http://localhost:3010/files/sound1.mp3" type="audio/mpeg"></source>
+                </audio>
                 <span className="badge badge-primary badge-pill">{song.time}</span>
                 <button onClick={(e) => this.handleDelete(song.id)} className="btn btn-danger mb-3">Удалить песню</button>
               </li>

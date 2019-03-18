@@ -11,19 +11,19 @@ export const postSong = (song, file) => dispatch => {
   currentSong.append('time', song.time);
   currentSong.append('file', file, file.name);
 
-  axios.post('http://localhost:3010/api/songs', currentSong)
+  axios.post('https://infinite-brook-78423.herokuapp.com/api/songs', currentSong)
     .then(({ data }) => dispatch(postSongSuccess(data)))
     .catch(error => dispatch(postSongError(error)));
 }
 
 export const fetchSongs = () => dispatch => {
-  axios.get('http://localhost:3010/api/songs')
+  axios.get('https://infinite-brook-78423.herokuapp.com/api/songs')
     .then(({ data }) => dispatch(fetchSongsSuccess(data)))
     .catch(error => dispatch(fetchSongsError(error)));
 }
 
 export const deleteSong = (id) => dispatch => {
-  axios.delete(`http://localhost:3010/api/songs/${id}`)
+  axios.delete(`https://infinite-brook-78423.herokuapp.com/api/songs/${id}`)
     .then(() => dispatch(deleteSongSuccess(id)))
     .catch((error) => dispatch(deleteSongError(error)))
 }

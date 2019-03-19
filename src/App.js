@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="container py-5">
-        <Route exact path="/" component={HomePage} />
+        <Route exact path={process.env.PUBLIC_URL + '/'} component={HomePage} />
       </div>
     );
   }
